@@ -44,5 +44,7 @@ function displayResults() {
 function registered() {
 	if (document.myform.hidden.value == 1) {
 		alert("You are registered!  Check your email  :)")	
+	}else{
+		alert("Ooops looks like you're already signed up! :)")
 	}
 }

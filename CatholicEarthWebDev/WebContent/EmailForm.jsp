@@ -8,6 +8,8 @@
 <%@page import="com.CE.eNotificatioin.SendEmail"%>
 <%@page import="com.CE.eNotificatioin.SendEmailDAO"%>
 <%@page import="com.CE.eNotificatioin.DBConnection"%>
+<%@page import="com.CE.eNotificatioin.SendEmailManager"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -30,32 +32,15 @@
 			if (request.getParameter("fname") != null) {
 				firstName = request.getParameter("fname");
 			}
+
 			if (request.getParameter("lname") != null) {
 				lastName = request.getParameter("lname");
 			}
 			if (request.getParameter("email") != null) {
 				emailAdd = request.getParameter("email");
 			}
-
-			String subject = "This is my test Subject line";
-			String message = "Welcome to Catholic Earth's automated email notification feature";
-			String sender = "kellytaylor644@gmail.com";
-
-			SendEmail emailObj = new SendEmail();
-			emailObj.setSubject(subject);
-			emailObj.setMessage(message);
-			emailObj.setSender(sender);
-
-			EmailContact con = new EmailContact();
-			con.setFirstName(firstName);
-			con.setLastName(lastName);
-			con.setEmail(emailAdd);
-
-			exists = EmailContactDAO.doesExist(con);
-			if (!(exists)) {
-				results = EmailContactDAO.addEmailContact(con);
-				SendEmailDAO.sendWelcomeMessage(con, emailObj);
-			}
+			
+			results = SendEmailManager.prepEmail(firstName, lastName, emailAdd);
 
 		}
 	%>
